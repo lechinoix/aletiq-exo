@@ -53,6 +53,7 @@ class GraphNode {
     key?: number;
     isReached = false;
     siblings: GraphNode[] = [];
+    maxReach = 0;
 
     constructor(key?: number) {
         this.key = key;
@@ -64,8 +65,10 @@ class GraphNode {
 
     colorAllSiblings(reach: number) {
         this.isReached = true;
-        if (reach === 0) return;
-        for (const sibling of this.siblings) {
+        this.maxReach = Math.max(this.maxReach, reach);
+        for (const sibling of this.siblings.filter(
+            (sibling) => sibling.maxReach < reach
+        )) {
             sibling.colorAllSiblings(reach - 1);
         }
     }
