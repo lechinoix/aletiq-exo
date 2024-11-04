@@ -1,64 +1,44 @@
+/**
+ Implementation :
+
+	- Creation d'une structure de Graph de la forme :
+
+	Graph {
+		nodes: GraphNode[]
+	}
+
+	GraphNode {
+		key?: number
+		isReached: boolean
+		siblings: GraphNode[]
+
+		colorAllSiblings(reach: number) {
+			this.isReached = true
+			if (reach === 0) return
+			for (const sibling of this.siblings) {
+				sibling.colorAllSiblings(reach - 1)
+			}
+		}
+	}
+
+	export const reachableNodes = (
+    edges: number[][],
+    maxMoves: number,
+    n: number
+): number => {
+	const graph = new Graph(edges)
+	const root = graph.nodes.find(node => node.key === 0)
+
+	root.colorAllSiblings(maxMoves)
+
+	return graph.nodes.filter(node => node.isReached).length
+};
+ */
+
 export const reachableNodes = (
     edges: number[][],
     maxMoves: number,
     n: number
 ): number => {
-    const graph = new Graph(edges);
+    throw new Error("Not implemented");
 };
-
-type Edge = { distance: number; destination: GraphNode };
-
-class GraphNode {
-	isReached = false;
-	siblings: GraphNode[];
-	constructor(siblings: GraphNode[]) {
-		this.siblings = siblings;
-	}
-
-	reach() {
-		this.isReached = true;
-}
-
-
-}
-
-class MainNode extends GraphNode {
-    edges: Edge[];
-
-    constructor(edges: Edge[]) {
-        
-    }
-}
-
-class Graph {
-    nodes = new Map();
-
-    constructor(edges: number[][]) {
-        this.buildNode(0, edges);
-    }
-
-    private buildNode = (key: number, edges: number[][]): GraphNode => {
-        const connectedEdges = (
-            edges.filter((edge) => (edge[0] || edge[1]) === key) ?? []
-        ).map((edge) => {
-            const destinationKey = edge[0] === key ? edge[1] : edge[0];
-            let destination = this.nodes.get(destinationKey);
-
-            if (!destination) {
-                const newNode = this.buildNode(destinationKey, edges);
-                destination = newNode;
-            }
-
-            return {
-                distance: edge[2],
-                destination,
-            };
-        });
-
-        const node = new MainNode(connectedEdges);
-
-				this.nodes.set(key, node);
-
-				return node;
-    };
-}
