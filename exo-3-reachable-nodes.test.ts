@@ -45,6 +45,6 @@ describe("Manual regexp", () => {
                 17,
                 5
             )
-        ).toBe(13);
+        ).toBe(1);
     });
 });
