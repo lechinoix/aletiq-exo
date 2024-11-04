@@ -13,4 +13,14 @@ describe("Manual regexp", () => {
     it("should match with wildcard (example 3)", () => {
         expect(isMatch("aa", ".*")).toBe(true);
     });
+    it("should match with wildcard with following character", () => {
+        expect(isMatch("bcba", ".*a")).toBe(true);
+    });
+    it("should not match with wildcard with wrong ending character", () => {
+        expect(isMatch("abab", ".*a")).toBe(false);
+    });
+
+    it("should match with followind character inside first match", () => {
+        expect(isMatch("bcaba", ".*a")).toBe(true);
+    });
 });
