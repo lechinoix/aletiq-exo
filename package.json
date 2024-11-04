@@ -1,0 +1,12 @@
+{
+	"name": "aletiq-test",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": { "test": "bun test" },
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}
